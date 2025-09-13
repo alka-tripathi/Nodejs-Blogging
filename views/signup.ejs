@@ -6,68 +6,62 @@
   </head>
   <body>
     <%- include("./partials/nav") %>
-    <div
-      class="container"
-      mt-4
-    >
-      <div class="mb-3 row">
+
+    <form action="/user/signup" method="post">
+      <div class="mb-3">
         <label
-          for="staticEmail"
-          class="col-sm-2 col-form-label"
-          >Email</label
+          for="exampleInputEmail1"
+          class="form-label"
+          >FullName</label
         >
-         <div class="col-sm-10">
-          <input
-            type="password"
-            class="form-control"
-            id="inputPassword"
-          />
-        <div class="col-sm-10">
-          <input
-            type="text"
-            readonly
-            class="form-control-plaintext"
-            id="staticEmail"
-          />
+        <input
+          type="email"
+          name="fullname"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+        />
+          <div class="mb-3">
+        <label
+          for="exampleInputEmail1"
+          class="form-label"
+          >Email address</label
+        >
+        <input
+          type="email"
+          name="email"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+        />
+        <div
+          id="emailHelp"
+          class="form-text"
+        >
+          We'll never share your email with anyone else.
         </div>
       </div>
-      <div class="mb-3 row">
+      <div class="mb-3">
         <label
-          for="staticEmail"
-          class="col-sm-2 col-form-label"
-          >Email</label
-        >
-        <div class="col-sm-10">
-          <input
-            type="password"
-            class="form-control"
-            id="inputPassword"
-          />
-        </div>
-        <div class="col-sm-10">
-          <input
-            type="text"
-            readonly
-            class="form-control-plaintext"
-            id="staticEmail"
-          />
-        </div>
-      </div>
-      <div class="mb-3 row">
-        <label
-          for="inputPassword"
-          class="col-sm-2 col-form-label"
+          for="exampleInputPassword1"
+          class="form-label"
           >Password</label
         >
-        <div class="col-sm-10">
-          <input
-            type="password"
-            class="form-control"
-            id="inputPassword"
-          />
-        </div>
+        <input
+          type="password"
+          name="password"
+          class="form-control"
+          id="exampleInputPassword1"
+        />
       </div>
-    </div>
+     
+      <button
+        type="submit"
+        class="btn btn-primary"
+      >
+        Submit
+      </button>
+    </form>
 
     <%- include("./partials/script") %>
   </body>
