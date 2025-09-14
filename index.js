@@ -11,6 +11,10 @@ dbConnection();
 app.set('view engine', 'ejs');
 app.set('views', path.resolve('./views'));
 
+
+//frontend se data aata hai toh
+app.use(express.urlencoded({extended:false}));
+
 app.get('/', (req, res) => {
   res.render('home.ejs');
 });

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bcryptjs');
 
 const userSchema = mongoose.Schema(
   {
@@ -29,6 +29,10 @@ const userSchema = mongoose.Schema(
       enum: ['USER', 'ADMIN'],
       default: 'USER',
     },
+    salt: {
+      type: String,
+      required: false, // or just remove this field completely
+    },
   },
   { timestamps: true }
 );
@@ -37,25 +41,22 @@ const userSchema = mongoose.Schema(
 
 //Without this check, every time you save a user (even if updating some other field), the password would get re-hashed again and again → making it unusable for login.
 
-
 //agar humme future mai koi update karna ho usernam ya email mai toh hashing password will remain as it is
 
 //pre ek middleware hai
-userSchema.pre("save", async function(next){
-    const user=this;
+userSchema.pre('save', async function (next) {
+  const user = this;
 
-    if(!user.isModified("password")) return;
+  if (!user.isModified('password')) return;
 
-    //random string
-      const salt = await bcrypt.genSalt(10);
-  user.password=await bcrypt.hash(user.password,salt);
+  //random string
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(user.password, salt);
 
   next();
+});
+userSchema.methods.comparePassword = async (enteredPass) => {
+  return await bcrypt.compare(enteredPass, this.password);
+};
 
-})
-userSchema.methods.comparePassword=async (enteredPass) => {
-    return await bcrypt.compare(enteredPass,this.password)
-    
-}
-
-exports.module = mongoose.model('user', userSchema);
+module.exports = mongoose.model('User', userSchema);
