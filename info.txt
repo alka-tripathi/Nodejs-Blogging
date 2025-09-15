@@ -1,0 +1,15 @@
+🏷️ What is Stateless?
+
+Stateless means the server does not store any information about the client’s state (session) between requests.
+
+Each request must contain all the necessary information for the server to understand and process it.
+
+Example: JWT-based authentication → the client sends the token with every request, and the server just verifies it without storing anything about the session.
+
+🏷️ What is Stateful?
+
+Stateful means the server remembers information (state) about the client between requests.
+
+The server maintains a session (in memory or database) after login, and each request references that stored session.
+
+Example: Traditional session-based login → the server keeps a session object, and the client only sends a session ID (cookie).
