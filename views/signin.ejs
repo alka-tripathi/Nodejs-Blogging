@@ -7,20 +7,9 @@
   <body>
     <%- include("./partials/nav") %>
 
-    <form action="/user/signup" method="post">
-      <div class="mb-3">
-        <label
-          for="exampleInputEmail1"
-          class="form-label"
-          >FullName</label
-        >
-        <input
-          type="name"
-          name="fullName"
-          class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-        />
+  <form action="/user/signin" method="post">
+    
+       
           <div class="mb-3">
         <label
           for="exampleInputEmail1"
@@ -60,9 +49,8 @@
         class="btn btn-primary"
       >
         Submit
-      </button>
-    </form>
+    </button>
 
-    <%- include("./partials/script") %>
+       <%- include("./partials/script") %>
   </body>
 </html>
