@@ -6,17 +6,22 @@ require('dotenv').config();
 const PORT = process.env.PORT || 8001;
 const dbConnection = require('./db.js');
 dbConnection();
+const cookieparser = require('cookie-parser');
+const { authenticationCookie } = require('./middleware/authentication.js');
 
 //setting view engine
 app.set('view engine', 'ejs');
 app.set('views', path.resolve('./views'));
 
-
 //frontend se data aata hai toh
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieparser);
 
+app.use(authenticationCookie('token'));
 app.get('/', (req, res) => {
-  res.render('home.ejs');
+  res.render('home.ejs', {
+    user: req.user,
+  });
 });
 
 // URL :- /user/signup ect

@@ -36,14 +36,15 @@
             >Features</a
           >
         </li> -->
-        <li class="nav-item">
+     <% if(locals.user) { %>
+         <li class="nav-item">
           <a
             class="nav-link"
             href="#"
             >Add Blog</a
           >
         </li>
-        <li class="nav-item dropdown">
+         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -62,6 +63,17 @@
               >
             </li>
             <li>
+
+      <% } else{ %>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/Signup">Signup</a>
+        </li>
+         <li class=""nav-item>
+          <a class="nav-link" href="/user/Signin">Signin</a>
+        </li>
+
+        <% }> 
+       
               <a
                 class="dropdown-item"
                 href="#"
