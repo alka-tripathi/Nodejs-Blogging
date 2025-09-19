@@ -52,4 +52,8 @@ router.post('/signup', async (req, res) => {
   });
   res.redirect('/'); //will redirect to the home [age]
 });
+
+router.get("/logout",(req,res)=>{
+  res.clearCookie("token").redirect("/");
+})
 module.exports = router;
