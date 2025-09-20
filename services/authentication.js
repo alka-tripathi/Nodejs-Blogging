@@ -11,7 +11,7 @@ function createTokenForUser(user) {
     profileImageURL: user.profilImageURL,
     role: user.role,
   };
-  const token = JWT.sign(payload, secret, { expiresIn: '1h' });
+  const token = JWT.sign(payload, secret, { expiresIn: '1h' });   //ye humara token hai
   return token;
 }
 

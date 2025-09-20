@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const userRouters = require('./routes/user');
+const blogRouters = require('./routes/blog.js');
 const app = express();
 require('dotenv').config();
 const PORT = process.env.PORT || 8001;
@@ -28,6 +29,8 @@ app.get('/', (req, res) => {
 
 // URL :- /user/signup ect
 app.use('/user', userRouters);
+
+app.use('/blog', blogRouters);
 
 app.listen(PORT, () => {
   console.log(`${PORT} Server is Listening..`);
