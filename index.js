@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const userRouters = require('./routes/user');
 const blogRouters = require('./routes/blog.js');
+const blog = require('./models/blog.js');
 const app = express();
 require('dotenv').config();
 const PORT = process.env.PORT || 8001;
@@ -9,6 +10,8 @@ const dbConnection = require('./db.js');
 dbConnection();
 const cookieparser = require('cookie-parser');
 app.use(cookieparser());
+
+app.use(express.static(path.resolve('./public')));
 
 const { authenticationCookie } = require('./middleware/authentication.js');
 
@@ -21,10 +24,18 @@ app.use(express.urlencoded({ extended: false }));
 // app.use(cookieparser);
 
 app.use(authenticationCookie('token'));
-app.get('/', (req, res) => {
-  res.render('home.ejs', {
-    user: req.user,
-  });
+
+app.get('/', async (req, res) => {
+  try {
+    const allBlogs = await blog.find({}).sort({ createdAt: -1 }); //descendin
+    res.render('home', {
+      user: req.user,
+      blogs: allBlogs,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Server Error');
+  }
 });
 
 // URL :- /user/signup ect

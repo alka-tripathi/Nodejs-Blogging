@@ -39,21 +39,27 @@ router.post('/signin', async (req, res) => {
   }
 });
 
-//post api
+
 router.get('/signup', (req, res) => {
   return res.render('signup.ejs');
 });
+//post api
 router.post('/signup', async (req, res) => {
-  const { fullname, email, password } = req.body;
-  await User.create({
-    fullName: fullname,
-    email,
-    password,
-  });
-  res.redirect('/'); //will redirect to the home [age]
+  try {
+    const { fullName, email, password } = req.body; // Match frontend input name
+    await User.create({
+      fullName,
+      email,
+      password,
+    });
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
+    res.status(400).send('Error: ' + err.message);
+  }
 });
 
-router.get("/logout",(req,res)=>{
-  res.clearCookie("token").redirect("/");
-})
+router.get('/logout', (req, res) => {
+  res.clearCookie('token').redirect('/');
+});
 module.exports = router;
