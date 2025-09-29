@@ -10,6 +10,7 @@ const dbConnection = require('./db.js');
 dbConnection();
 const cookieparser = require('cookie-parser');
 app.use(cookieparser());
+const blogRouter = require('./routes/blog.js');
 
 app.use(express.static(path.resolve('./public')));
 
@@ -41,7 +42,7 @@ app.get('/', async (req, res) => {
 // URL :- /user/signup ect
 app.use('/user', userRouters);
 
-app.use('/blog', blogRouters);
+app.use('/blogs', blogRouter);
 
 app.listen(PORT, () => {
   console.log(`${PORT} Server is Listening..`);

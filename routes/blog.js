@@ -3,6 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const blog = require('../models/blog');
+const comments = require('../models/comment');
 
 const router = express.Router();
 
@@ -53,6 +54,32 @@ router.post('/', upload.single('coverImage'), async (req, res) => {
       oldInput: req.body,
     });
   }
+});
+
+router.get('/:id', async (req, res) => {
+  try {
+    const blogPost = await blog.findById(req.params.id).populate('createdBy');
+    console.log(blogPost);
+    if (!blogPost) {
+      return res.status(404).send('Blog not found');
+    }
+    return res.render('blog', {
+      user: req.user,
+      blog: blogPost,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send('Server error');
+  }
+});
+
+router.post('/comment/:blogId', async (req, res) => {
+  await comments.create({
+    content: res.body,
+    blogId: req.blogId,
+    createdBy: req.user._id,
+  });
+  return res.redirect(`/blog/${req.params.blogId}`);
 });
 
 module.exports = router;

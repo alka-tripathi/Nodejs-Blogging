@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+// const user = require('./models/users.js');
 
-const blogSchema = mongoose.Schema(
+const blogSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -8,17 +9,18 @@ const blogSchema = mongoose.Schema(
     },
     body: {
       type: String,
-      requied: true,
+      required: true,
     },
     coverImageURL: {
       type: String,
-      required: false,
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'user',
+      ref: 'user', // Must match the User model name
+      required: true,
     },
   },
-  { timeStamps: true }
+  { timestamps: true } // ✅ fixed spelling
 );
+
 module.exports = mongoose.model('blog', blogSchema);
