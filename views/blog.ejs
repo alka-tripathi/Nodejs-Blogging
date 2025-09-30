@@ -26,8 +26,9 @@
 
     <div class="container mt-4">
       <h1>Comments</h1>
+      <% if(locals.user) { %>
       <form
-        action="/user/signin"
+        action="/blogs/comment/<%= blog._id %>"
         method="post"
       >
         <div class="mb-3">
@@ -37,30 +38,16 @@
             class="form-control"
             placeholder="Enter Your Comment"
           />
-          <button type="submit">Add</button>
-        </div>
-
-        <div class="mb-3">
-          <label
-            for="exampleInputPassword1"
-            class="form-label"
-            >Password</label
+          <button
+            type="submit"
+            class="btn btn-primary mt-4"
           >
-          <input
-            type="password"
-            name="password"
-            class="form-control"
-            id="exampleInputPassword1"
-          />
+            Submit
+          </button>
         </div>
-
-        <button
-          type="submit"
-          class="btn btn-primary"
-        >
-          Submit
-        </button>
       </form>
+
+      <% } %>
     </div>
 
     <%- include("./partials/script") %>

@@ -74,9 +74,12 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/comment/:blogId', async (req, res) => {
+  if (!req.user) {
+    return res.redirect('/login');
+  }
   await comments.create({
-    content: res.body,
-    blogId: req.blogId,
+    content: req.body.content,
+    blogId: req.params.blogId,
     createdBy: req.user._id,
   });
   return res.redirect(`/blog/${req.params.blogId}`);
