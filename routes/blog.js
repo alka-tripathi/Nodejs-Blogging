@@ -4,15 +4,9 @@ const path = require('path');
 const fs = require('fs');
 const blog = require('../models/blog');
 const comments = require('../models/comment');
+// const comment = require('../models/comment');
 
 const router = express.Router();
-
-// GET route to render blog form
-router.get('/add-new', (req, res) => {
-  return res.render('addBlogs', {
-    user: req.user,
-  });
-});
 
 // Configure storage
 const storage = multer.diskStorage({
@@ -32,7 +26,16 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.post('/', upload.single('coverImage'), async (req, res) => {
+// 2️⃣ GET: Show add new blog form
+router.get('/add-new', (req, res) => {
+  return res.render('addBlogs', {
+    user: req.user,
+  });
+});
+
+// 3️⃣ POST: Create a new blog
+
+router.post('/add-new', upload.single('coverImage'), async (req, res) => {
   try {
     const { title, body } = req.body;
 
@@ -59,13 +62,19 @@ router.post('/', upload.single('coverImage'), async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const blogPost = await blog.findById(req.params.id).populate('createdBy');
+
+    const commentlist = await comments
+      .find({ blogId: req.params.id })
+      .populate('createdBy');
     console.log(blogPost);
+    console.log(commentlist);
     if (!blogPost) {
       return res.status(404).send('Blog not found');
     }
     return res.render('blog', {
       user: req.user,
       blog: blogPost,
+      comments: commentlist,
     });
   } catch (err) {
     console.error(err);

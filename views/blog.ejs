@@ -25,7 +25,7 @@
     </div>
 
     <div class="container mt-4">
-      <h1>Comments</h1>
+      <h1>Comments (<%= comments.length %>)</h1>
       <% if(locals.user) { %>
       <form
         action="/blogs/comment/<%= blog._id %>"
@@ -50,6 +50,18 @@
       <% } %>
     </div>
 
-    <%- include("./partials/script") %>
+    <div class="mt-3">
+      <% comments.forEach(comment => { %>
+      <div>
+        <img
+          src="<%= comment.createdBy.profileImageUrl %>"
+          width="50px"
+        />
+        <strong> <%= comment.createdBy.fullName %></strong>
+        <pre class="mt-2"><%= comment.content %></pre>
+      </div>
+      <% }) %>
+    </div>
+    %> <%- include("./partials/script") %>
   </body>
 </html>
