@@ -27,7 +27,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // 2️⃣ GET: Show add new blog form
-router.get('/add-new', (req, res) => {
+router.get('/addnew', (req, res) => {
   return res.render('addBlogs', {
     user: req.user,
   });
@@ -35,7 +35,7 @@ router.get('/add-new', (req, res) => {
 
 // 3️⃣ POST: Create a new blog
 
-router.post('/add-new', upload.single('coverImage'), async (req, res) => {
+router.post('/addnew', upload.single('coverImage'), async (req, res) => {
   try {
     const { title, body } = req.body;
 
@@ -91,7 +91,7 @@ router.post('/comment/:blogId', async (req, res) => {
     blogId: req.params.blogId,
     createdBy: req.user._id,
   });
-  return res.redirect(`/blog/${req.params.blogId}`);
+  return res.redirect(`/blogs/${req.params.blogId}`);
 });
 
 module.exports = router;
